@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arman Hosting - Instant Free Website Hosting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex flex-col items-center justify-center p-4 relative">
+
+    <!-- ========================================== -->
+    <!-- 1. MAINTENANCE MODE SCREEN (FOR ALL USERS) -->
+    <!-- ========================================== -->
+    <div id="maintenanceScreen" class="hidden fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 p-6 text-center">
+        <div class="max-w-md w-full bg-slate-900 border border-amber-500/30 rounded-2xl p-8 shadow-2xl">
+            <div class="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                🚧
+            </div>
+            <span class="bg-amber-500/10 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full border border-amber-500/20">
+                System Upgrade
+            </span>
+            <h1 class="text-2xl font-bold text-white mt-3">Under Maintenance</h1>
+            <p id="maintenanceNote" class="text-slate-400 text-sm mt-2 mb-6">
+                ARMAN HOSTING abhi maintenance par hai. Kripya thodi der baad wapas aayein!
+            </p>
+            <a href="https://t.me/ARMAN_BOMBER" target="_blank"
+                class="inline-block w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition">
+                📢 Updates Ke Liye Telegram Join Karein
+            </a>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 2. AUTHENTICATION & TELEGRAM JOIN MODAL    -->
+    <!-- ========================================== -->
+    <div id="authModal" class="fixed inset-0 z-40 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-blue-500/10 border border-blue-500/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-7 h-7 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.257.258-.528.258l.193-3.055 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.659-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                    </svg>
+                </div>
+                <h2 id="authTitle" class="text-2xl font-bold text-white">Account Banayein</h2>
+                <p id="authSubtitle" class="text-slate-400 text-xs mt-1">Free hosting use karne ke liye pehle Telegram join karein aur account banayein.</p>
+            </div>
+
+            <!-- Telegram Join Step -->
+            <div id="stepTelegram" class="space-y-4">
+                <a href="https://t.me/ARMAN_BOMBER" target="_blank" onclick="markTelegramJoined()"
+                    class="block text-center w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition shadow-lg">
+                    📢 Pehle Telegram Channel Join Karein
+                </a>
+                <button onclick="proceedAfterTelegram()" id="btnNextToForm" disabled
+                    class="block w-full bg-slate-800 text-slate-500 font-semibold py-3 rounded-xl transition cursor-not-allowed">
+                    Maine Join Kar Liya (Aage Badhein)
+                </button>
+            </div>
+
+            <!-- Login / Signup Form Step -->
+            <div id="stepForm" class="hidden space-y-4">
+                <div class="flex bg-slate-950 p-1 rounded-xl mb-4 border border-slate-800">
+                    <button onclick="switchTab('signup')" id="tabSignup" class="flex-1 py-2 text-xs font-bold rounded-lg bg-emerald-600 text-white transition">Naya Account</button>
+                    <button onclick="switchTab('login')" id="tabLogin" class="flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 transition">Login Karein</button>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Username</label>
+                        <input type="text" id="authUsername" placeholder="apna username dalein"
+                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Password</label>
+                        <input type="password" id="authPassword" placeholder="••••••••"
+                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <button onclick="handleAuthSubmit()" id="authSubmitBtn"
+                    class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition shadow-lg text-sm mt-2">
+                    Account Banayein & Enter Karein
+                </button>
+                <p id="authError" class="text-xs text-center text-red-400 hidden mt-2"></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 3. ADMIN PANEL MODAL (Opened via #admin)    -->
+    <!-- ========================================== -->
+    <div id="adminModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                <h2 class="text-lg font-bold text-emerald-400">🛡️ Arman Admin Panel</h2>
+                <button onclick="closeAdminPanel()" class="text-slate-400 hover:text-white text-xl">&times;</button>
+            </div>
+
+            <!-- Admin Password Verification -->
+            <div id="adminLoginBox" class="space-y-4">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Admin Password</label>
+                    <input type="password" id="adminPassInput" placeholder="••••••••"
+                        class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <button onclick="verifyAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-lg text-sm">
+                    Unlock Panel
+                </button>
+            </div>
+
+            <!-- Admin Controls -->
+            <div id="adminControlsBox" class="hidden space-y-5">
+                <div class="flex items-center justify-between bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <div>
+                        <p class="text-sm font-semibold text-white">Maintenance Mode</p>
+                        <p class="text-xs text-slate-400">Sabhi users ke liye site lock karein</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="maintenanceToggle" class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                    </label>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Maintenance Message</label>
+                    <textarea id="customMaintenanceMsg" rows="3"
+                        class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">ARMAN HOSTING abhi maintenance par hai. Kripya thodi der baad wapas aayein!</textarea>
+                </div>
+
+                <button id="saveAdminBtn" onclick="saveMaintenanceSettings()"
+                    class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-semibold py-2.5 rounded-lg text-sm shadow-lg">
+                    💾 Save & Update Live Status
+                </button>
+                <p id="adminStatusText" class="text-xs text-center text-emerald-400 hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 4. MAIN HOSTING WEBSITE CONTENT            -->
+    <!-- ========================================== -->
+    <div id="mainContent" class="max-w-2xl w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+        <div class="flex justify-between items-center mb-6">
+            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full border border-emerald-500/20">
+                ⚡ 100% Free Hosting
+            </span>
+            <span id="loggedInUserDisplay" class="text-xs text-slate-400 bg-slate-950 px-3 py-1 rounded-lg border border-slate-800"></span>
+        </div>
+
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                ARMAN HOSTING
+            </h1>
+            <p class="text-slate-400 text-sm mt-2">
+                Apna HTML code paste karein ya file upload karein aur turant live URL payein.
+            </p>
+        </div>
+
+        <!-- Hosting Form -->
+        <form id="deployForm" class="space-y-5">
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Project / Site Name</label>
+                <div class="flex items-center bg-slate-950 border border-slate-700 rounded-lg overflow-hidden focus-within:border-blue-500">
+                    <span class="text-slate-500 text-sm pl-3">armanhost.netlify.app/sites/</span>
+                    <input type="text" id="siteName" required placeholder="mera-project" pattern="[a-zA-Z0-9-_]+"
+                        class="w-full bg-transparent text-white px-2 py-2.5 text-sm focus:outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">HTML File Upload Karein (Optional)</label>
+                <input type="file" id="fileInput" accept=".html,.htm"
+                    class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer bg-slate-950 border border-slate-700 rounded-lg p-1.5">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Ya Apna HTML Code Yahan Paste Karein</label>
+                <textarea id="htmlCode" rows="8" required placeholder="<!DOCTYPE html><html><body><h1>Hello World!</h1></body></html>"
+                    class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm font-mono text-emerald-300 focus:outline-none focus:border-blue-500"></textarea>
+            </div>
+
+            <button type="submit" id="deployBtn"
+                class="w-full bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-lg">
+                🚀 Publish & Send to Arman
+            </button>
+        </form>
+
+        <!-- Result Box -->
+        <div id="resultBox" class="hidden mt-6 p-4 bg-emerald-950/50 border border-emerald-500/30 rounded-xl text-center">
+            <p class="text-emerald-400 font-semibold text-sm">🎉 Aapka code successfully Arman ke paas bhej diya gaya hai!</p>
+            <p class="text-xs text-slate-400 mt-1">Netlify par live hone ka link:</p>
+            <a id="liveUrl" href="#" target="_blank"
+                class="inline-block mt-3 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg break-all">
+            </a>
+        </div>
+
+        <!-- Error Box -->
+        <div id="errorBox" class="hidden mt-6 p-4 bg-red-950/50 border border-red-500/30 rounded-xl text-center text-red-400 text-sm">
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // CONFIGURATION DETAILS
+        // ==========================================
+        const GITHUB_USERNAME afgamezar89-cpu"YOUR_GITHUB_USERNAME"; 
+        const REPO_NAME = ARMAN HOST"YOUR_REPO_NAME";             
+        const GITHUB_TOKEN = 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"YOUR_GITHUB_TOKEN";       
+        const NETLIFY_BASE_URL = "https://your-site.netlify.app"; 
+
+        const TELEGRAM_BOT_TOKEN = "9076355564:AAHTm8zSTE8-j2bb9o4wNarBH8WT9fw2WMk"; 
+        const TELEGRAM_CHAT_ID = "8341041677";     
+        const ADMIN_PASSWORD = "arman786"; 
+
+        let authMode = 'signup'; // 'signup' or 'login'
+
+        // ==========================================
+        // INITIAL LOAD & CHECK
+        // ==========================================
+        window.onload = async function() {
+            checkMaintenanceStatus();
+            checkUrlForAdmin();
+            checkUserSession();
+        };
+
+        // URL me #admin check karne ke liye
+        function checkUrlForAdmin() {
+            if (window.location.hash === '#admin') {
+                document.getElementById('adminModal').classList.remove('hidden');
+            }
+        }
+
+        // Check agar user pehle se logged in hai
+        function checkUserSession() {
+            const savedUser = localStorage.getItem('arman_host_user');
+            if (savedUser) {
+                document.getElementById('authModal').classList.add('hidden');
+                document.getElementById('loggedInUserDisplay').innerText = `👤 ${savedUser}`;
+            } else {
+                document.getElementById('authModal').classList.remove('hidden');
+            }
+        }
+
+        // ==========================================
+        // AUTHENTICATION & TELEGRAM JOIN LOGIC
+        // ==========================================
+        function markTelegramJoined() {
+            const btn = document.getElementById('btnNextToForm');
+            btn.disabled = false;
+            btn.classList.remove('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
+            btn.classList.add('bg-blue-600', 'hover:bg-blue-500', 'text-white');
+            localStorage.setItem('telegram_joined_status', 'true');
+        }
+
+        function proceedAfterTelegram() {
+            if (localStorage.getItem('telegram_joined_status') !== 'true') {
+                alert('Pehle Telegram channel join karein!');
+                return;
+            }
+            document.getElementById('stepTelegram').classList.add('hidden');
+            document.getElementById('stepForm').classList.remove('hidden');
+        }
+
+        function switchTab(mode) {
+            authMode = mode;
+            const btnSignup = document.getElementById('tabSignup');
+            const btnLogin = document.getElementById('tabLogin');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const title = document.getElementById('authTitle');
+
+            if (mode === 'signup') {
+                btnSignup.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-emerald-600 text-white transition";
+                btnLogin.className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 transition";
+                submitBtn.innerText = "Account Banayein & Enter Karein";
+                title.innerText = "Naya Account Banayein";
+            } else {
+                btnLogin.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-emerald-600 text-white transition";
+                btnSignup.className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 transition";
+                submitBtn.innerText = "Login Karke Enter Karein";
+                title.innerText = "Apne Account me Login Karein";
+            }
+        }
+
+        function handleAuthSubmit() {
+            const user = document.getElementById('authUsername').value.trim();
+            const pass = document.getElementById('authPassword').value.trim();
+            const errorBox = document.getElementById('authError');
+            errorBox.classList.add('hidden');
+
+            if (!user || !pass) {
+                errorBox.innerText = "Kripya username aur password dono bharein.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            const existingUser = localStorage.getItem('arman_registered_user');
+            const existingPass = localStorage.getItem('arman_registered_pass');
+
+            if (authMode === 'signup') {
+                if (existingUser) {
+                    errorBox.innerText = "Aapka account pehle se bana hua hai! Kripya 'Login Karein' par click karein.";
+                    errorBox.classList.remove('hidden');
+                    return;
+                }
+                localStorage.setItem('arman_registered_user', user);
+                localStorage.setItem('arman_registered_pass', pass);
+                localStorage.setItem('arman_host_user', user);
+                alert("🎉 Account successfully ban gaya!");
+                checkUserSession();
+            } else {
+                if (!existingUser || existingUser !== user || existingPass !== pass) {
+                    errorBox.innerText = "Galat Username ya Password!";
+                    errorBox.classList.remove('hidden');
+                    return;
+                }
+                localStorage.setItem('arman_host_user', user);
+                checkUserSession();
+            }
+        }
+
+        // ==========================================
+        // MAINTENANCE & ADMIN PANEL
+        // ==========================================
+        async function checkMaintenanceStatus() {
+            try {
+                const res = await fetch(`./config.json?t=${Date.now()}`);
+                if (res.ok) {
+                    const config = await res.json();
+                    document.getElementById('maintenanceToggle').checked = config.maintenance;
+                    if (config.message) {
+                        document.getElementById('customMaintenanceMsg').value = config.message;
+                        document.getElementById('maintenanceNote').innerText = config.message;
+                    }
+                    if (config.maintenance === true) {
+                        document.getElementById('maintenanceScreen').classList.remove('hidden');
+                    }
+                }
+            } catch (e) {}
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminModal').classList.add('hidden');
+            window.location.hash = ''; // remove #admin from url
+        }
+
+        function verifyAdmin() {
+            const entered = document.getElementById('adminPassInput').value;
+            if (entered === ADMIN_PASSWORD) {
+                document.getElementById('adminLoginBox').classList.add('hidden');
+                document.getElementById('adminControlsBox').classList.remove('hidden');
+            } else {
+                alert("❌ Galat Password!");
+            }
+        }
+
+        async function saveMaintenanceSettings() {
+            const isMaintenance = document.getElementById('maintenanceToggle').checked;
+            const customMsg = document.getElementById('customMaintenanceMsg').value.trim();
+            const btn = document.getElementById('saveAdminBtn');
+            const statusText = document.getElementById('adminStatusText');
+
+            btn.disabled = true;
+            btn.innerText = "⏳ Updating Live Server...";
+
+            try {
+                const configData = JSON.stringify({
+                    maintenance: isMaintenance,
+                    message: customMsg,
+                    updatedAt: new Date().toISOString()
+                }, null, 2);
+
+                const base64Content = btoa(unescape(encodeURIComponent(configData)));
+                const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/config.json`;
+
+                let sha = null;
+                const checkRes = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                if (checkRes.ok) {
+                    const existingData = await checkRes.json();
+                    sha = existingData.sha;
+                }
+
+                const payload = {
+                    message: `Admin: Maintenance mode ${isMaintenance ? 'ON' : 'OFF'}`,
+                    content: base64Content
+                };
+                if (sha) payload.sha = sha;
+
+                const uploadRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!uploadRes.ok) throw new Error("GitHub details check karein.");
+
+                statusText.innerText = `✅ Saved! Maintenance ab ${isMaintenance ? 'ON' : 'OFF'} hai.`;
+                statusText.classList.remove('hidden');
+            } catch (err) {
+                alert("❌ Error: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "💾 Save & Update Live Status";
+            }
+        }
+
+        // ==========================================
+        // HOSTING DEPLOY & TELEGRAM NOTIFICATION
+        // ==========================================
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('htmlCode').value = event.target.result;
+            };
+            reader.readAsText(file);
+        });
+
+        document.getElementById('deployForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const siteName = document.getElementById('siteName').value.trim().toLowerCase();
+            const htmlCode = document.getElementById('htmlCode').value;
+            const btn = document.getElementById('deployBtn');
+            const resultBox = document.getElementById('resultBox');
+            const errorBox = document.getElementById('errorBox');
+            const currentUser = localStorage.getItem('arman_host_user') || 'Unknown';
+
+            resultBox.classList.add('hidden');
+            errorBox.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerText = "⏳ Processing & Notifying Arman...";
+
+            try {
+                const base64Content = btoa(unescape(encodeURIComponent(htmlCode)));
+                const filePath = `sites/${siteName}/index.html`;
+                const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${filePath}`;
+
+                let sha = null;
+                const checkRes = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                if (checkRes.ok) {
+                    const existingData = await checkRes.json();
+                    sha = existingData.sha;
+                }
+
+                const payload = {
+                    message: `New site submission by ${currentUser}: ${siteName}`,
+                    content: base64Content
+                };
+                if (sha) payload.sha = sha;
+
+                const uploadRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!uploadRes.ok) throw new Error("GitHub upload fail ho gaya.");
+
+                const finalUrl = `${NETLIFY_BASE_URL}/sites/${siteName}/`;
+                const telegramMessage = `🚨 ARMAN HOSTING: New Site!\n\n👤 User: ${currentUser}\n📂 Project: ${siteName}\n🔗 URL: ${finalUrl}`;
+                
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: telegramMessage
+                    })
+                });
+
+                const liveLink = document.getElementById('liveUrl');
+                liveLink.href = finalUrl;
+                liveLink.innerText = finalUrl;
+                resultBox.classList.remove('hidden');
+
+            } catch (error) {
+                errorBox.innerText = "❌ Error: " + error.message;
+                errorBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "🚀 Publish & Send to Arman";
+            }
+        });
+    </script>
+</body>
+</html>
